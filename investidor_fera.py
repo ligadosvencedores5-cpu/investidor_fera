@@ -75,6 +75,11 @@ div[data-baseweb="select"] > div {background:#fff !important; color:#14231C !imp
 .passo .n {flex:0 0 26px; height:26px; border-radius:50%; background:#F2B705; color:#3D2A00 !important; font-weight:800; display:flex; align-items:center; justify-content:center;}
 .passo.ok .n {background:#0F7A43; color:#fff !important;}
 .passo span {color:#4B6358 !important;}
+@media (max-width:640px){
+  .cab {padding:14px 16px;} .cab h1, .stApp .cab h1, .stApp .cab h1 span {font-size:1.45rem !important;}
+  .passos {grid-template-columns:1fr 1fr;} .passo span {display:none;} .passo {font-size:.82em; padding:6px 8px;}
+  .kpi .v {font-size:1.25em;}
+}
 </style>""", unsafe_allow_html=True)
 
 
@@ -899,8 +904,8 @@ def pente_fino():
         add("info", "Complete seus dados financeiros", "Informe gastos mensais e reserva em 🧭 Meu Perfil para o app avaliar sua reserva.", 5)
 
     if r["total"] <= 0:
-        add("info", "Carteira vazia", "Registre seus investimentos em 💼 Carteira para o pente fino analisar a alocação.", 0)
-        return {"pontos": max(pontos, 0), "achados": achados, "resumo": r}
+        add("info", "Carteira vazia", "Registre seus investimentos em 💼 Carteira para o pente fino dar a nota da sua carteira.", 0)
+        return {"pontos": None, "achados": achados, "resumo": r, "risco": None}
 
     aloc = alocacao_pct(r)
     alvo = ALVOS.get(S.perfil or "Moderado")
@@ -1823,9 +1828,11 @@ with abas[4]:
     st.caption("O app confere reserva, alocação, concentração, diversificação, aportes e rendimento x CDI, e dá uma nota de 0 a 100. "
                "Faça todo mês: com 3 notas de 80 ou mais (e a trilha completa) você vira 🦁 Fera.")
     pf = pente_fino()
-    cor = "#0F7A43" if pf["pontos"] >= 80 else ("#D97706" if pf["pontos"] >= 60 else "#B42318")
+    vazia = pf["pontos"] is None
+    cor = "#4B6358" if vazia else ("#0F7A43" if pf["pontos"] >= 80 else ("#D97706" if pf["pontos"] >= 60 else "#B42318"))
     c1, c2 = st.columns([1, 3])
-    c1.markdown(f'<div class="kpi"><div class="l">Nota da carteira</div><div class="v" style="color:{cor}">{pf["pontos"]}/100</div></div>', unsafe_allow_html=True)
+    c1.markdown(f'<div class="kpi"><div class="l">Nota da carteira</div><div class="v" style="color:{cor}">{"—" if vazia else str(pf["pontos"]) + "/100"}</div>'
+                + ('<div style="font-size:.8em;color:#4B6358">Registre sua carteira para receber a nota</div>' if vazia else '') + '</div>', unsafe_allow_html=True)
     if pf["resumo"]["rv"]:
         rk = pf["risco"]
         c1.markdown(f'<div class="kpi" style="margin-top:8px"><div class="l">Perda possível num dia ruim</div><div class="v neg">{brl(rk["perda_dia"])}</div>'
@@ -1857,14 +1864,14 @@ with abas[4]:
         else:
             st.caption("Informe quanto pretende investir por mês em 🧭 Meu Perfil para ver a divisão sugerida por classe.")
     b1, b2 = st.columns(2)
-    if b1.button("💾 Registrar este pente fino", width="stretch"):
+    if not vazia and b1.button("💾 Registrar este pente fino", width="stretch"):
         S.revisoes.append({"data": HOJE.isoformat(), "pontos": pf["pontos"], "patrimonio": r["total"], "rent": r["rent"],
                            "achados": [a["titulo"] for a in pf["achados"] if a["nivel"] in ("critico", "alerta")]})
         ganhar_xp(30, "Pente fino registrado", unico=f"pente_{HOJE.isoformat()[:7]}")
         if pf["pontos"] >= 80:
             ganhar_xp(40, "Pente fino com nota 80+", unico=f"pente80_{HOJE.isoformat()[:7]}")
         st.rerun()
-    if b2.button("🤖 Análise do mentor sobre este pente fino", width="stretch"):
+    if not vazia and b2.button("🤖 Análise do mentor sobre este pente fino", width="stretch"):
         with st.spinner("O mentor está analisando sua carteira…"):
             try:
                 achados_txt = "\n".join(f"- [{a['nivel']}] {a['titulo']}: {a['texto']}" for a in pf["achados"])
