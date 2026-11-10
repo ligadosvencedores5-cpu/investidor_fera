@@ -68,6 +68,13 @@ div[data-baseweb="select"] > div {background:#fff !important; color:#14231C !imp
 .achado.critico {border-left-color:#B42318;} .achado.alerta {border-left-color:#D97706;} .achado.ok {border-left-color:#0F7A43;} .achado.info {border-left-color:#2563EB;}
 .nivel {display:inline-block; background:#0F5132; color:#fff !important; border-radius:20px; padding:4px 12px; font-weight:700; font-size:.85em;}
 .aviso-cvm {font-size:.8em; color:#4B6358 !important;}
+.explorar {background:#FFF7E0; border:2px solid #F2B705; border-radius:16px; padding:14px 16px; margin:4px 0 10px 0;}
+.explorar .t {font-weight:800; color:#7A4F00 !important; letter-spacing:.03em; margin-bottom:10px;}
+.passos {display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px;}
+.passo {display:flex; gap:8px; align-items:flex-start; background:#fff; border:1px solid #F0D98A; border-radius:12px; padding:8px 10px; font-size:.86em; line-height:1.3;}
+.passo .n {flex:0 0 26px; height:26px; border-radius:50%; background:#F2B705; color:#3D2A00 !important; font-weight:800; display:flex; align-items:center; justify-content:center;}
+.passo.ok .n {background:#0F7A43; color:#fff !important;}
+.passo span {color:#4B6358 !important;}
 </style>""", unsafe_allow_html=True)
 
 
@@ -79,6 +86,8 @@ NIVEIS_TRILHA = {
     2: "🏦 Renda fixa",
     3: "📊 Renda variável",
     4: "🧠 Estratégia",
+    5: "🪙 Criptomoedas",
+    6: "🌎 Mercados avançados e alto risco",
 }
 
 # (id, nível, título, pontos-chave, perguntas de reserva [pergunta, opções, índice correto, explicação])
@@ -233,8 +242,108 @@ MODULOS = [
         ("Como se paga o IR do lucro em ações acima da isenção?", ["Retido pelo banco", "DARF até o último dia útil do mês seguinte", "No fim do ano, sem guia", "Não paga"], 1, "Na bolsa, o próprio investidor emite o DARF."),
         ("Prejuízo em ações pode:", ["Ser compensado com lucros futuros", "Ser descontado do salário", "Ser ignorado", "Ser transferido a outra pessoa"], 0, "Prejuízos ficam acumulados para compensar lucros."),
     ]),
+    ("m16", 5, "Criptomoedas: o básico", [
+        "Cripto é dinheiro digital registrado numa **blockchain**: um livro-caixa público, copiado em milhares de computadores no mundo, muito difícil de fraudar.",
+        "**Bitcoin (BTC)** tem oferta limitada a 21 milhões de unidades e muita gente o vê como 'ouro digital'. **Ethereum (ETH)** é uma plataforma para contratos inteligentes e aplicativos. **Stablecoins** (ex.: USDT, USDC) tentam valer sempre 1 dólar.",
+        "Cripto **não tem lucro, aluguel ou juros por trás**: o preço depende de oferta, procura e confiança. Por isso oscila muito — quedas de 50% a 80% já aconteceram várias vezes.",
+        "Referência usada por muitos educadores: cripto, se houver, fica numa parte pequena da carteira (de 0% a 5%) e só depois da reserva de emergência pronta.",
+    ], [
+        ("O que é a blockchain?", ["Um banco digital", "Um registro público e distribuído das transações", "Uma corretora", "Um tipo de ação"], 1, "É um livro-caixa compartilhado em muitos computadores."),
+        ("Qual é o limite máximo de bitcoins que podem existir?", ["Ilimitado", "21 milhões", "1 bilhão", "100 mil"], 1, "O protocolo do Bitcoin limita a oferta a 21 milhões."),
+        ("Para que serve uma stablecoin como o USDC?", ["Para render juros garantidos", "Para tentar manter o valor estável, atrelado ao dólar", "Para votar na empresa", "Para pagar IR"], 1, "Stablecoins buscam valer 1 dólar."),
+    ]),
+    ("m17", 5, "Cripto: como comprar e guardar com segurança", [
+        "Caminhos: **corretora de cripto (exchange)** com operação no Brasil; **ETFs de cripto na B3** (ex.: HASH11, QBTC11), comprados pela sua corretora de ações, sem precisar guardar chaves; ou fundos de cripto.",
+        "Na exchange, você depende da segurança dela. Na **autocustódia** (carteira própria, como uma hardware wallet), você guarda as **12 ou 24 palavras de recuperação**. Perdeu as palavras, perdeu o dinheiro.",
+        "**Nunca** digite as palavras de recuperação em sites, não tire print e não passe para 'suporte'. Ative a **verificação em duas etapas (2FA)** por aplicativo, não por SMS.",
+        "Desde o marco legal das criptos (Lei 14.478/2022), o **Banco Central** regula as empresas que prestam serviços com ativos virtuais. Prefira empresas autorizadas e com CNPJ no Brasil.",
+    ], [
+        ("Qual a vantagem de um ETF de cripto na B3 para iniciantes?", ["Rende juros fixos", "Você não precisa guardar chaves ou palavras de recuperação", "Não oscila", "É garantido pelo FGC"], 1, "O ETF é comprado na corretora de ações, como qualquer outro."),
+        ("Alguém do 'suporte' pede suas 12 palavras de recuperação. Você:", ["Envia para resolver rápido", "Nunca envia: é golpe", "Envia só metade", "Manda print"], 1, "Ninguém legítimo pede as palavras de recuperação."),
+        ("Qual a forma mais segura de verificação em duas etapas?", ["Por SMS", "Por aplicativo autenticador", "Sem verificação", "Por e-mail com a mesma senha"], 1, "Apps autenticadores são mais seguros que SMS."),
+    ]),
+    ("m18", 5, "Cripto: riscos, golpes e impostos", [
+        "Golpes comuns: pirâmides com 'rendimento garantido', falsos suportes, 'robôs de trade' milagrosos, moedas novas empurradas por influenciadores (pump and dump) e sites falsos de corretoras.",
+        "Riscos próprios: oscilação extrema, quebra de corretoras (a FTX faliu em 2022 e clientes ficaram sem acesso ao dinheiro), envio para endereço errado sem volta e projetos que somem.",
+        "**IR em 2026**: o lucro é **isento se o total de vendas de cripto no mês for de até R$ 35 mil**. Acima disso, paga **15% sobre o lucro** (alíquotas maiores só para ganhos milionários), por DARF até o último dia útil do mês seguinte.",
+        "Declare suas criptos na declaração anual (bens e direitos, pelo custo de compra). Operações em corretoras estrangeiras ou entre pessoas têm obrigação de informar a Receita acima de certos valores mensais: confira a regra atual no site da Receita Federal.",
+    ], [
+        ("O que a quebra da FTX em 2022 ensinou?", ["Que cripto é garantida", "Que deixar tudo numa única corretora tem risco", "Que bitcoin acabou", "Que não existe imposto"], 1, "Se a corretora quebra, o cliente pode ficar sem acesso."),
+        ("Você vendeu R$ 20 mil em cripto no mês com lucro. Paga IR?", ["Sim, 15%", "Não: vendas até R$ 35 mil no mês são isentas", "Sim, 22,5%", "Sim, 20%"], 1, "A isenção vale para vendas mensais de até R$ 35 mil."),
+        ("Um 'robô' promete 3% ao dia em cripto. Isso é:", ["Ótimo negócio", "Sinal típico de golpe", "Normal no mercado", "Garantido pelo Banco Central"], 1, "Retorno alto e garantido é a marca registrada de golpes."),
+    ]),
+    ("m19", 6, "Fundos de investimento e previdência", [
+        "Um **fundo** junta o dinheiro de muita gente e um **gestor** profissional investe. Você paga **taxa de administração** (e às vezes **de performance**). Taxa alta come o rendimento ano após ano.",
+        "Tipos: renda fixa, multimercado, ações e cambial. Fundos de renda fixa e multimercado têm **come-cotas**: o IR é antecipado em maio e novembro.",
+        "**Previdência privada**: **PGBL** permite deduzir até 12% da renda bruta tributável no IR (bom para quem faz a declaração completa); **VGBL** cobra IR só sobre o rendimento (bom para quem faz a simplificada). Na tabela **regressiva**, o IR cai até 10% após 10 anos.",
+        "Antes de entrar: compare taxas, o histórico contra o índice de referência e o prazo para resgatar (cotização).",
+    ], [
+        ("O que é o come-cotas?", ["Uma taxa da corretora", "A antecipação do IR em maio e novembro em alguns fundos", "Um tipo de dividendo", "Uma multa"], 1, "O come-cotas recolhe IR antecipadamente nesses fundos."),
+        ("Quem faz a declaração completa do IR e quer deduzir o aporte costuma preferir:", ["VGBL", "PGBL", "Poupança", "LCI"], 1, "O PGBL permite deduzir até 12% da renda bruta tributável."),
+        ("Por que a taxa de administração importa?", ["Porque é cobrada todo ano e reduz o seu rendimento", "Porque é paga uma vez só", "Porque é isenta", "Porque garante lucro"], 0, "Taxa anual alta pesa muito no longo prazo."),
+    ]),
+    ("m20", 6, "Investir no exterior", [
+        "Por que: diversificar fora do risco Brasil, ter parte do patrimônio em dólar e acesso às maiores empresas do mundo.",
+        "Caminhos: **BDRs** e **ETFs** na B3 (ex.: IVVB11, que replica o S&P 500), ou **conta em corretora internacional** (envio de dinheiro, câmbio e IOF).",
+        "Desde 2024 (Lei 14.754/2023), rendimentos e lucros de aplicações mantidas **diretamente no exterior** por pessoa física pagam **15% no ajuste anual** do IR.",
+        "O dólar sobe e desce: um investimento lá fora pode cair em reais mesmo que suba em dólar — e o contrário também.",
+    ], [
+        ("Uma forma de investir no exterior sem abrir conta fora do Brasil é:", ["ETFs e BDRs na B3", "Poupança", "LCI", "Tesouro Selic"], 0, "Eles são negociados na B3 pela sua corretora."),
+        ("Lucros em aplicações mantidas diretamente no exterior pagam:", ["Nada", "15% no ajuste anual", "22,5% na fonte", "1% ao mês"], 1, "É a regra da Lei 14.754/2023."),
+        ("Seu ETF americano subiu 10% em dólar e o dólar caiu 10%. Em reais, você:", ["Ganhou 20%", "Ficou perto de zero", "Perdeu 20%", "Ganhou 10%"], 1, "A variação do câmbio compensou a alta."),
+    ]),
+    ("m21", 6, "Análise fundamentalista x técnica", [
+        "**Fundamentalista**: estuda a empresa (lucros, dívidas, gestão, setor) para estimar quanto ela vale. É a mais usada por quem investe no longo prazo.",
+        "**Técnica (gráfica)**: estuda gráficos de preço e volume (tendências, suportes, médias móveis) para tentar prever movimentos de curto prazo.",
+        "Nenhuma das duas garante acerto. A maioria das pessoas que tenta adivinhar o curto prazo não consegue ganhar do mercado de forma consistente.",
+        "Onde buscar dados oficiais: o site de **Relações com Investidores (RI)** da empresa, a B3 e a CVM (resultados trimestrais e formulário de referência).",
+    ], [
+        ("Quem estuda lucros e dívidas para saber quanto a empresa vale usa a análise:", ["Técnica", "Fundamentalista", "Astrológica", "Gráfica"], 1, "Esse é o foco da análise fundamentalista."),
+        ("Onde encontrar os resultados oficiais de uma empresa listada?", ["Em grupos de mensagens", "No site de RI da empresa e na CVM", "Em vídeos de influenciadores", "Na conta de luz"], 1, "Fontes oficiais evitam informação distorcida."),
+        ("A análise técnica garante acerto no curto prazo?", ["Sim", "Não, nenhuma análise garante", "Só às sextas", "Só com robô"], 1, "Ela trabalha com probabilidades, não certezas."),
+    ]),
+    ("m22", 6, "Day trade, opções e alavancagem", [
+        "**Day trade** é comprar e vender no mesmo dia. Paga **20% de IR** sobre o lucro, sem isenção.",
+        "Um estudo da FGV com dados da B3 e da CVM acompanhou quem fez day trade em minicontratos por mais de 300 pregões: **97% tiveram prejuízo** e só cerca de 1% ganhou mais que um salário mínimo por dia de trabalho.",
+        "**Alavancagem** (operar com mais dinheiro do que você tem, como em minicontratos ou margem) multiplica ganhos **e perdas** — dá para perder mais do que investiu.",
+        "**Opções** são contratos que dão o direito de comprar ou vender um ativo por um preço até uma data; muitas perdem todo o valor no vencimento. São para quem já domina o básico, com valores que aceita perder.",
+    ], [
+        ("O que o estudo da FGV mostrou sobre quem insistiu no day trade?", ["Quase todos ficaram ricos", "Cerca de 97% tiveram prejuízo", "Metade ganhou", "Ninguém operou"], 1, "A grande maioria perdeu dinheiro."),
+        ("Alavancagem faz o quê?", ["Elimina o risco", "Multiplica ganhos e perdas", "Garante lucro", "Isenta de IR"], 1, "Com alavancagem a perda pode passar do valor investido."),
+        ("Qual a alíquota de IR no lucro de day trade?", ["15% com isenção", "20% sem isenção", "Isento", "10%"], 1, "Day trade paga 20% e não tem a isenção de R$ 20 mil."),
+    ]),
+    ("m23", 6, "Trader esportivo e apostas: como funciona e os riscos", [
+        "**Aposta não é investimento.** O resultado depende de um evento esportivo e a casa embute a margem dela nas odds (ou cobra comissão). Na média, quem aposta perde dinheiro.",
+        "O **trader esportivo** usa **bolsas de apostas (exchanges)**, onde os apostadores negociam entre si: dá para 'apostar a favor' (back) ou 'contra' (lay) e sair antes do fim do jogo. A exchange cobra comissão sobre o lucro. Continua sendo aposta, com risco alto.",
+        "No Brasil, só sites **autorizados pelo Ministério da Fazenda**, com endereço terminando em **.bet.br**, podem operar (Lei 14.790/2023). Os prêmios líquidos pagam **15% de IR** na parte que passa da faixa de isenção anual.",
+        "Proteja-se: use só dinheiro que pode perder (nunca a reserva ou o dinheiro das contas), defina um limite e pare nele, não tente 'recuperar' perdas e peça ajuda se apostar virou problema — no SUS (CAPS) ou com os Jogadores Anônimos.",
+    ], [
+        ("Apostas esportivas são:", ["Um investimento seguro", "Jogo, com risco alto e expectativa média de perda", "Renda fixa", "Garantidas pelo FGC"], 1, "A margem da casa faz o apostador perder na média."),
+        ("Como reconhecer um site de apostas autorizado no Brasil?", ["Pelo endereço terminado em .bet.br", "Pelo número de seguidores", "Pela cor do site", "Pelo bônus maior"], 0, "Só empresas autorizadas usam o domínio .bet.br."),
+        ("Depois de perder R$ 500, aumentar as apostas para 'recuperar' é:", ["Boa estratégia", "Um dos comportamentos mais perigosos", "Obrigatório", "Gestão de banca"], 1, "Correr atrás da perda é sinal de alerta."),
+    ]),
+    ("m24", 6, "Planejamento: aposentadoria e independência", [
+        "O **INSS** é a base, mas costuma pagar bem menos do que a renda de quem está na ativa. Investir é o que completa o padrão de vida.",
+        "**Independência financeira** é ter um patrimônio que gere a renda de que você precisa. Conta rápida: renda mensal × 12 ÷ taxa de retirada. Com 4% ao ano, são **300 vezes** a renda mensal.",
+        "Quanto mais perto de usar o dinheiro, mais **segurança** na carteira: mais renda fixa e menos oscilação.",
+        "Planejar também é ter **seguro de vida** se alguém depende de você, organizar a **sucessão** (testamento, beneficiários) e conversar sobre dinheiro com a família.",
+    ], [
+        ("Para tirar R$ 5 mil por mês retirando 4% ao ano, você precisa de cerca de:", ["R$ 150 mil", "R$ 600 mil", "R$ 1,5 milhão", "R$ 5 milhões"], 2, "5.000 × 12 ÷ 0,04 = R$ 1,5 milhão."),
+        ("Faltando 2 anos para usar o dinheiro, a carteira deve ficar:", ["Mais arriscada", "Mais segura", "Toda em cripto", "Em day trade"], 1, "Perto do objetivo, previsibilidade vale mais."),
+        ("O INSS sozinho costuma:", ["Pagar mais que o salário", "Pagar menos do que a renda da ativa", "Pagar em dólar", "Não existir"], 1, "Por isso é importante complementar."),
+    ]),
 ]
 MOD = {m[0]: m for m in MODULOS}
+
+CURSOS_OFICIAIS = [
+    ("B3 Educação", "https://edu.b3.com.br", "Cursos gratuitos da própria bolsa: do básico de finanças a ações, FIIs, ETFs e derivativos, com certificado."),
+    ("Tesouro Direto", "https://www.tesourodireto.com.br", "Site oficial do Tesouro: simulador, explicação de cada título e conteúdos para iniciantes."),
+    ("Portal do Investidor (CVM)", "https://www.gov.br/investidor/pt-br", "Da CVM, que fiscaliza o mercado: cursos, cadernos, alertas de golpes e como consultar se uma empresa é autorizada."),
+    ("Como Investir (ANBIMA)", "https://comoinvestir.anbima.com.br", "Explicações simples sobre cada tipo de investimento, fundos e previdência."),
+    ("Cidadania Financeira (Banco Central)", "https://www.bcb.gov.br/cidadaniafinanceira", "Do Banco Central: orçamento, crédito, dívidas, poupança e cursos gratuitos."),
+    ("Meu Bolso em Dia (Febraban)", "https://meubolsoemdia.com.br", "Teste de saúde financeira e conteúdos sobre organizar as contas."),
+    ("Escola Virtual de Governo", "https://www.escolavirtual.gov.br", "Cursos online gratuitos do governo federal, incluindo educação financeira, com certificado."),
+]
 
 PERGUNTAS_PERFIL = [
     ("Por quanto tempo você pretende deixar o dinheiro investido?",
@@ -262,9 +371,9 @@ TAXA_REAL_PADRAO = {"Conservador": 4.0, "Moderado": 5.0, "Arrojado": 6.0}
 NIVEIS_INV = [  # (nome, xp mínimo, requisito de módulos do nível)
     ("🌱 Iniciante", 0, 0),
     ("📘 Aprendiz", 300, 1),
-    ("💼 Investidor", 800, 2),
-    ("🧭 Estrategista", 1600, 3),
-    ("🦁 Fera", 2600, 4),
+    ("💼 Investidor", 900, 2),
+    ("🧭 Estrategista", 1800, 4),
+    ("🦁 Fera", 3200, 6),
 ]
 
 TIPOS_RF = ["Pós-fixado (% do CDI)", "Prefixado (% ao ano)", "IPCA + taxa (% ao ano)", "Poupança"]
@@ -839,7 +948,7 @@ def pente_fino():
 
     feitos = {k for k, v in S.modulos.items() if v.get("aprovado")}
     if aloc["Ações"] > 0 and "m8" not in feitos:
-        add("info", "Estude antes de aumentar ações", "Você já tem ações, mas ainda não passou no módulo 'Ações: o que analisar'. Faça esse módulo na 🎓 Trilha.", 3)
+        add("info", "Estude antes de aumentar ações", "Você já tem ações, mas ainda não passou no módulo 'Ações: o que analisar'. Faça esse curso em 🎓 Cursos grátis.", 3)
     if aloc["FIIs"] > 0 and "m9" not in feitos:
         add("info", "Estude FIIs", "Você tem FIIs, mas ainda não passou no módulo de Fundos imobiliários.", 2)
 
@@ -935,7 +1044,7 @@ def proximo_passo():
     feitos = {k for k, v in S.modulos.items() if v.get("aprovado")}
     for m in MODULOS:
         if m[0] not in feitos:
-            return f"Estude o módulo **{m[2]}** na 🎓 Trilha e faça a prova."
+            return f"Estude o curso **{m[2]}** em 🎓 Cursos grátis e faça a prova."
     if not (S.ops or S.rf):
         return "Registre seus investimentos em 💼 Carteira."
     if not S.revisoes or S.revisoes[-1]["data"] < (HOJE - timedelta(days=30)).isoformat():
@@ -951,6 +1060,121 @@ def memoria_json():
     d["_app"] = "investidor_fera"
     d["_salvo_em"] = datetime.now().isoformat(timespec="seconds")
     return json.dumps(d, ensure_ascii=False, indent=2).encode("utf-8")
+
+
+TUTORIAL = {
+    "1. O que é este app": """
+**O Investidor Fera é um professor e um acompanhante de investimentos.** Ele não guarda o seu dinheiro e não compra nada por você.
+
+Ele faz três coisas:
+1. **Ensina** — do zero ao avançado, com **24 cursos grátis** e prova no fim de cada um (inclui criptomoedas, day trade e trader esportivo).
+2. **Acompanha** — você anota aqui o que investiu na sua corretora ou banco, e o app calcula quanto está rendendo, com preços atualizados sozinhos.
+3. **Revisa** — todo mês o **🔍 Pente fino** dá uma nota para a sua carteira e mostra o que melhorar.
+
+Você vai subindo de nível — 🌱 Iniciante → 📘 Aprendiz → 💼 Investidor → 🧭 Estrategista → 🦁 **Fera**.
+
+> 💡 O dinheiro fica sempre no **seu** banco ou corretora. Aqui você só **anota e acompanha**.
+""",
+    "2. Por onde começar (passo a passo)": """
+Siga nesta ordem. Leva uns 15 minutos no primeiro dia:
+
+1. **🧭 Meu Perfil** → responda as 6 perguntas e preencha renda, gastos e reserva. Clique em **CALCULAR MEU PERFIL**.
+   O app diz se você é **Conservador**, **Moderado** ou **Arrojado** e como dividir seu dinheiro.
+2. **🎓 Cursos grátis** → abra o 1º curso, leia os pontos-chave e clique em **📝 Fazer a prova**. Acertou 80%? O próximo curso abre.
+   São **24 cursos** do zero ao avançado: finanças, renda fixa, bolsa, estratégia, **criptomoedas**, exterior, fundos, day trade e **trader esportivo**.
+   Se quiser mais explicação, clique em **📖 Aula completa com a IA**.
+3. **💼 Carteira** → se você **já investe**, anote o que tem:
+   - Ações, FIIs, ETFs ou cripto: aba **➕ Ações, FIIs, ETFs, cripto** → código (ex.: PETR4), quantidade e preço que pagou.
+   - CDB, Tesouro, LCI, poupança: aba **🏦 Renda fixa** → produto, valor e taxa.
+   Se **ainda não investe**, pule este passo e siga a trilha primeiro.
+4. **🔍 Pente fino** → veja sua nota e os avisos. Clique em **💾 Registrar este pente fino** (uma vez por mês).
+5. **🎯 Metas** → crie um objetivo (ex.: "Casa própria – R$ 100 mil em 8 anos"). O app diz quanto guardar por mês.
+6. **💾 Minha memória** (no topo) → **salve o arquivo** antes de sair. Na próxima vez, abra esse arquivo e tudo volta.
+
+> ⚠️ Se você **não salvar a memória**, os dados somem quando fechar a página.
+""",
+    "3. Palavras que você vai ver": """
+| Palavra | O que quer dizer |
+|---|---|
+| **Renda fixa** | Você empresta dinheiro (ao governo ou a um banco) e sabe a regra de quanto vai ganhar. Ex.: Tesouro, CDB, poupança. |
+| **Renda variável** | O valor sobe e desce todo dia. Ex.: ações, FIIs, ETFs, cripto. |
+| **Ação** | Um pedacinho de uma empresa. Ex.: PETR4 é um pedacinho da Petrobras. |
+| **FII (fundo imobiliário)** | Você vira "dono" de um pedacinho de prédios, galpões ou shoppings e recebe aluguel todo mês. Código termina em 11. |
+| **ETF** | Uma cesta com várias ações numa compra só. Ex.: BOVA11 tem as maiores empresas da bolsa. |
+| **Ticker (código)** | O "apelido" do ativo na bolsa: PETR4, MXRF11, IVVB11. |
+| **CDI** | A taxa de referência da renda fixa. "CDB 100% do CDI" rende igual ao CDI. |
+| **Selic** | A taxa de juros do Brasil, definida pelo Banco Central. |
+| **IPCA** | A inflação oficial: o quanto as coisas ficaram mais caras. |
+| **Dividendos / proventos** | Parte do lucro que a empresa ou fundo paga a você. |
+| **Corretora** | O "banco da bolsa": é por ela que você compra ações e FIIs (ex.: no aplicativo do seu banco ou numa corretora). |
+| **Reserva de emergência** | Dinheiro guardado para imprevistos, num lugar seguro e que você pode sacar no mesmo dia. |
+| **Liquidez** | A rapidez para transformar o investimento em dinheiro na mão. |
+| **Volatilidade / oscilação** | O quanto o preço sobe e desce. Quanto maior, mais "montanha-russa". |
+| **Diversificar** | Não colocar todos os ovos na mesma cesta. |
+| **Aporte** | Dinheiro novo que você coloca nos investimentos. |
+""",
+    "4. Como ler a tela inicial": """
+**📡 Ao vivo** (no Painel):
+- **Ibovespa** — o "termômetro" da bolsa brasileira. Verde = subiu hoje, vermelho = caiu.
+- **Dólar** — quanto custa 1 dólar em reais.
+- **Sua carteira hoje** — quanto seus investimentos de bolsa subiram ou caíram **hoje**, em % e em reais.
+- **Risco agora** — numa estimativa, quanto você **poderia perder num dia ruim** (aqueles que acontecem 1 vez a cada 20 dias). Serve para você saber se está confortável com o risco.
+
+Os preços se atualizam **sozinhos** (você escolhe de quanto em quanto tempo, à direita). Eles chegam com **uns 15 minutos de atraso** — é normal nas fontes gratuitas.
+
+**Os quatro quadros:**
+- **Patrimônio** — quanto vale tudo o que você anotou, hoje.
+- **Resultado total** — quanto você ganhou (verde) ou perdeu (vermelho) desde o começo.
+- **Rentabilidade** — o mesmo, em %.
+- **CDI no período** — quanto você teria ganho deixando tudo num investimento simples que rende 100% do CDI. Serve de comparação.
+""",
+    "5. A chave Groq (a IA do app)": """
+O app usa uma **inteligência artificial grátis** chamada **Groq** para dar aulas, montar provas, responder dúvidas e pesquisar notícias. Para usar, você precisa de uma **chave** (uma senha da IA).
+
+**Como pegar a sua (grátis, 2 minutos):**
+1. Entre em 👉 **[console.groq.com/keys](https://console.groq.com/keys)**.
+2. Clique em **Sign in** e entre com sua conta **Google**.
+3. Clique em **Create API Key**, dê um nome qualquer (ex.: investidor) e clique em **Submit**.
+4. **Copie** a chave que aparece (começa com **gsk_**). Ela só aparece uma vez.
+5. Cole na tela de entrada do app.
+
+🔒 A chave fica só nesta sessão. Não compartilhe com ninguém.
+⏳ Se aparecer "limite de uso grátis", espere alguns minutos e tente de novo.
+""",
+    "6. Como investir de verdade": """
+Este app **não vende investimentos**. Para investir de verdade:
+
+1. **Abra uma conta numa corretora ou use o app do seu banco** (a maioria tem área de investimentos). É grátis na maioria das corretoras.
+2. **Comece pela reserva de emergência**: Tesouro Selic ou um CDB com liquidez diária que pague 100% do CDI ou mais.
+3. **Só depois da reserva pronta** e dos módulos de renda variável da trilha, comece com pouco em ações, FIIs ou ETFs.
+4. Toda vez que investir, **anote aqui no app** (💼 Carteira) para acompanhar.
+
+🚨 **Cuidado com golpes:** ninguém garante lucro alto. Desconfie de "5% ao mês garantido", grupos que dão "dica quente" e pedidos de PIX para "investir por você". Corretora de verdade é autorizada pela **CVM** e pelo **Banco Central**.
+""",
+    "7. Cripto e trader esportivo": """
+**Criptomoedas** (Bitcoin, Ethereum, stablecoins) têm 3 cursos só delas no nível 🪙 dos **🎓 Cursos grátis**: o básico, como comprar e guardar com segurança, e riscos, golpes e impostos.
+- Na carteira, registre cripto com o código (ex.: **BTC**, **ETH**) e a classe **Cripto**. O app busca o preço em reais sozinho.
+- O pente fino avisa se cripto passar de 10% da carteira.
+
+**Trader esportivo e apostas** têm um curso no nível 🌎: como funcionam as bolsas de apostas, a lei brasileira (sites **.bet.br**), o imposto e, principalmente, os **riscos**.
+> ⚠️ Aposta **não é investimento**: na média, quem aposta perde. Se apostar virou problema, procure ajuda (CAPS no SUS ou Jogadores Anônimos).
+""",
+    "7. Dúvidas comuns": """
+**Preciso pagar alguma coisa?** Não. O app e a chave Groq são grátis.
+
+**O app compra ou vende por mim?** Não. Ele só ensina e acompanha. Você investe pelo seu banco ou corretora.
+
+**O app me diz qual ação comprar?** Não. Ele ensina **como analisar** e mostra os riscos. Indicação de ativo exige um profissional certificado.
+
+**Por que o preço está diferente do aplicativo do banco?** As cotações gratuitas têm uns 15 minutos de atraso. Se um ativo não aparecer, use **✏️ Preço manual** na Carteira.
+
+**O valor do meu CDB não bate com o banco.** O app faz uma **estimativa**. Para o valor exato, digite o valor do extrato no campo de valor atual da aplicação.
+
+**Perdi meus dados!** Os dados ficam só enquanto a página está aberta. Use sempre **💾 Salvar minha memória** e abra o arquivo na próxima visita.
+
+**O que é a nota do pente fino?** É uma nota de 0 a 100 que o app dá para a sua carteira. Acima de 80 é ótimo. Os avisos vermelhos são os mais importantes.
+""",
+}
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -973,6 +1197,9 @@ if not S.i_chave:
             else:
                 S.i_nome, S.i_chave = nome.strip(), chave.strip()
                 st.rerun()
+        with st.expander("🆕 Primeira vez? Veja como entrar em 1 minuto"):
+            st.markdown(TUTORIAL["5. A chave Groq (a IA do app)"])
+            st.markdown("Depois de entrar, abra o **📘 Tutorial para iniciantes** no topo do app. Ele explica tudo, passo a passo.")
         st.markdown(f"""<div class="card" style="font-size:.92em;line-height:1.7;">
         🔑 <b>Não tem chave?</b> Crie grátis em <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a>
         (entre com Google, clique em <b>Create API Key</b> e copie).<br>
@@ -1040,7 +1267,47 @@ with c_mem:
                 del S[k]
             st.rerun()
 
-abas = st.tabs(["🏠 Painel", "🧭 Meu Perfil", "🎓 Trilha", "💼 Carteira", "🔍 Pente fino", "🎯 Metas",
+# ══════════════════════════════════════════════════════════════════════════
+# TUTORIAL PARA LEIGOS (no topo do app)
+# ══════════════════════════════════════════════════════════════════════════
+def como_explorar():
+    passos = [
+        ("1", "🧭", "Meu Perfil", "Descubra seu perfil e como dividir seu dinheiro"),
+        ("2", "🎓", "Cursos grátis", "24 cursos do zero ao avançado, com prova"),
+        ("3", "💼", "Carteira", "Anote o que você já investiu"),
+        ("4", "🏠", "Painel", "Acompanhe tudo ao vivo e o risco do dia"),
+        ("5", "🔍", "Pente fino", "Nota da carteira e o que melhorar, todo mês"),
+        ("6", "🎯", "Metas", "Quanto guardar por mês para chegar lá"),
+        ("7", "💬", "Mentor", "Tire dúvidas e veja as notícias de agora"),
+    ]
+    feito = {"1": bool(S.perfil), "2": any(v.get("aprovado") for v in S.modulos.values()), "3": bool(S.ops or S.rf),
+             "4": bool(S.ops or S.rf), "5": bool(S.revisoes), "6": bool(S.metas), "7": bool(S.chat or S.noticias)}
+    cards = "".join(
+        f'<div class="passo{" ok" if feito[n] else ""}"><div class="n">{"✓" if feito[n] else n}</div>'
+        f'<div><b>{ic} {nome}</b><br><span>{txt}</span></div></div>' for n, ic, nome, txt in passos)
+    st.markdown(f'<div class="explorar"><div class="t">🗺️ COMO EXPLORAR O APP — siga as abas nesta ordem</div>'
+                f'<div class="passos">{cards}</div></div>', unsafe_allow_html=True)
+
+
+como_explorar()
+
+
+def tutorial():
+    novo = not S.perfil
+    with st.expander("📘 **Tutorial para iniciantes — clique aqui se é sua primeira vez**", expanded=novo and not S.get("_tut_fechado")):
+        st.caption("Leia na ordem. Você pode abrir este tutorial de novo a qualquer momento.")
+        abas_t = st.tabs(list(TUTORIAL.keys()))
+        for aba_t, txt in zip(abas_t, TUTORIAL.values()):
+            with aba_t:
+                st.markdown(txt)
+        if novo and st.button("✅ Entendi, vamos começar", key="tut_ok"):
+            S["_tut_fechado"] = True
+            st.rerun()
+
+
+tutorial()
+
+abas = st.tabs(["🏠 Painel", "🧭 Meu Perfil", "🎓 Cursos grátis", "💼 Carteira", "🔍 Pente fino", "🎯 Metas",
                 "🧮 Simuladores", "🏆 Nível", "💬 Mentor", "📘 Guia"])
 
 
@@ -1124,7 +1391,7 @@ with abas[0]:
                     + (f'Próximo: <b>{prox[0]}</b> — falta: {", ".join(requisitos_proximo(prox)) or "nada! atualize a página"}' if prox else "Você chegou ao topo! 🦁")
                     + '</div>', unsafe_allow_html=True)
         feitos = len([1 for v in S.modulos.values() if v.get("aprovado")])
-        st.progress(feitos / len(MODULOS), text=f"Trilha: {feitos} de {len(MODULOS)} módulos")
+        st.progress(feitos / len(MODULOS), text=f"Cursos: {feitos} de {len(MODULOS)} aprovados")
         if S.revisoes:
             u = S.revisoes[-1]
             st.markdown(f'<div class="card">🔍 Último pente fino: <b>{u["pontos"]}/100</b> em {br_data(u["data"])}</div>', unsafe_allow_html=True)
@@ -1217,8 +1484,20 @@ def gerar_prova(mid):
 
 
 with abas[2]:
-    st.markdown("### 🎓 Trilha do investidor")
-    st.caption("Estude cada módulo e faça a prova. Acertando 80% ou mais, o módulo é aprovado e o próximo é liberado.")
+    st.markdown("### 🎓 Cursos grátis")
+    sub_c = st.tabs(["📚 Trilha do investidor (24 cursos)", "🔗 Cursos oficiais gratuitos"])
+    with sub_c[1]:
+        st.caption("Plataformas oficiais e gratuitas para aprofundar. Os links abrem em outra aba.")
+        for nome_c, url_c, desc_c in CURSOS_OFICIAIS:
+            st.markdown(f'<div class="card"><b>{nome_c}</b> — <a href="{url_c}" target="_blank">{url_c.replace("https://", "")}</a><br>{desc_c}</div>',
+                        unsafe_allow_html=True)
+        st.caption("🛡️ Antes de investir com qualquer empresa, confira no Portal do Investidor (CVM) ou no Banco Central se ela é autorizada.")
+    trilha_box = sub_c[0]
+
+
+with trilha_box:
+    st.caption("Do zero ao avançado: finanças, renda fixa, bolsa, estratégia, criptomoedas, exterior, fundos, day trade e até trader esportivo. "
+               "Estude cada curso e faça a prova. Acertando 80% ou mais, o curso é aprovado e o próximo é liberado.")
     feitos = {k for k, v in S.modulos.items() if v.get("aprovado")}
     liberado_ate = 0
     for i, m in enumerate(MODULOS):
@@ -1840,11 +2119,13 @@ with abas[8]:
 # ══════════════════════════════════════════════════════════════════════════
 with abas[9]:
     st.markdown("### 📘 Como usar o Investidor Fera")
+    st.info("Primeira vez? Abra o **📘 Tutorial para iniciantes** no topo da página. Abaixo, o resumo de cada aba.")
     GUIA = [
         ("1. Defina seu perfil", "Em **🧭 Meu Perfil**, responda as 6 perguntas e informe renda, gastos, reserva e quanto quer investir por mês. "
          "O app calcula seu perfil (Conservador, Moderado ou Arrojado) e a alocação-alvo da carteira."),
-        ("2. Estude a trilha", "Em **🎓 Trilha**, abra o módulo liberado, leia os pontos-chave e, se quiser, peça a **aula completa com a IA**. "
-         "Depois faça a **prova**: com 80% ou mais o módulo é aprovado e o próximo é liberado. São 15 módulos em 4 níveis."),
+        ("2. Faça os cursos", "Em **🎓 Cursos grátis**, abra o curso liberado, leia os pontos-chave e, se quiser, peça a **aula completa com a IA**. "
+         "Depois faça a **prova**: com 80% ou mais o curso é aprovado e o próximo é liberado. São 24 cursos em 6 níveis, de finanças básicas a criptomoedas, "
+         "day trade e trader esportivo. Na mesma aba, **🔗 Cursos oficiais gratuitos** traz B3, CVM, Tesouro, ANBIMA e Banco Central."),
         ("3. Registre sua carteira", "Em **💼 Carteira**, registre compras e vendas de ações, FIIs, ETFs e cripto (com o código, ex.: PETR4) e suas aplicações "
          "de renda fixa. Clique em **🔄 Atualizar cotações** para ver os preços atuais. Registre também dividendos e rendimentos."),
         ("📡 Tempo real", "No **🏠 Painel**, o quadro **📡 Ao vivo** busca sozinho Ibovespa, dólar, S&P 500 e as cotações dos seus ativos "
@@ -1854,7 +2135,7 @@ with abas[9]:
         ("4. Faça o pente fino todo mês", "Em **🔍 Pente fino**, veja a nota da carteira e os pontos de atenção. Clique em **💾 Registrar** para guardar a nota "
          "e em **🤖 Análise do mentor** para receber um plano para o próximo mês. O app também mostra como dividir o próximo aporte entre as classes."),
         ("5. Acompanhe suas metas", "Em **🎯 Metas**, crie objetivos. O app recalcula o aporte mensal necessário com o seu patrimônio real e com o rendimento que a carteira está tendo."),
-        ("6. Suba de nível", "XP vem de estudar, registrar, aportar e fazer o pente fino. Para virar **🦁 Fera**: 2.600 XP, toda a trilha aprovada e 3 pentes finos com nota 80 ou mais."),
+        ("6. Suba de nível", "XP vem de estudar, registrar, aportar e fazer o pente fino. Para virar **🦁 Fera**: 3.200 XP, os 24 cursos aprovados e 3 pentes finos com nota 80 ou mais."),
         ("7. Salve sua memória", "Os dados ficam só nesta sessão. Em **💾 Minha memória**, salve o arquivo .json no seu aparelho e abra na próxima visita."),
         ("⚠️ Importante", "O Investidor Fera é **educativo**. Ele ensina, calcula e acompanha, mas **não recomenda comprar ou vender** ativos específicos — "
          "isso exige um profissional certificado. Rentabilidade passada não garante rentabilidade futura. Confira regras de imposto na Receita Federal."),
